@@ -1,0 +1,10 @@
+strategy,rerank,hit@k,mrr@k,recall@k,k,n
+fixed,False,0.92,0.7247,0.9133,5,50
+fixed,True,0.98,0.94,0.98,5,50
+fixed,False,0.98,0.7324,0.98,20,50
+article,False,0.96,0.852,0.9433,5,50
+article,True,0.98,0.95,0.9733,5,50
+article,False,1.0,0.8576,1.0,20,50
+semantic,False,1.0,0.9117,0.9933,5,50
+semantic,True,1.0,0.9767,0.9967,5,50
+semantic,False,1.0,0.9117,1.0,20,50

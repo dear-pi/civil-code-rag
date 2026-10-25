@@ -1,0 +1,15 @@
+{
+ "semantic_threshold": {
+  "threshold": 0.7182,
+  "within_article_median": 0.741,
+  "cross_article_median": 0.6954,
+  "n_pairs": 2713
+ },
+ "refusal": {
+  "threshold_rerank_logit": 0.9601,
+  "in_scope_top1_median": 0.9994,
+  "oos_top1_median": 0.0496,
+  "oos_false_accept_at_threshold": 0.0,
+  "note": "scores are raw cross-encoder logits; threshold = 5th percentile of in-scope top-1"
+ }
+}
