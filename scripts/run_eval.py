@@ -174,12 +174,13 @@ def main() -> None:
     calibration = {
         "semantic_threshold": sem_stats,
         "refusal": {
-            "threshold_rerank_logit": round(tau, 4),
+            "threshold_rerank_score": round(tau, 4),
             "in_scope_top1_median": round(float(np.median(in_top1_rerank)), 4),
             "oos_top1_median": round(float(np.median(oos_scores["rerank"])), 4),
             "oos_false_accept_at_threshold": round(false_accept, 4),
             "note": (
-                "scores are raw cross-encoder logits; "
+                "scores are cross-encoder probabilities (sentence-transformers applies "
+                "sigmoid for single-label rerankers), not raw logits; "
                 "threshold = 5th percentile of in-scope top-1"
             ),
         },

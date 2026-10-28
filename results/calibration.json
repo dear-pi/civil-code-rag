@@ -6,10 +6,10 @@
   "n_pairs": 2713
  },
  "refusal": {
-  "threshold_rerank_logit": 0.9601,
+  "threshold_rerank_score": 0.9601,
   "in_scope_top1_median": 0.9994,
   "oos_top1_median": 0.0496,
   "oos_false_accept_at_threshold": 0.0,
-  "note": "scores are raw cross-encoder logits; threshold = 5th percentile of in-scope top-1"
+  "note": "scores are cross-encoder probabilities (sentence-transformers applies sigmoid for single-label rerankers), not raw logits; threshold = 5th percentile of in-scope top-1"
  }
 }

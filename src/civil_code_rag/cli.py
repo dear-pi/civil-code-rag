@@ -2,10 +2,13 @@
 
 Usage:
     ccr-ask "诉讼时效是几年" [--strategy article] [--top-k 5]
-          [--refuse-threshold 2.0] [--retriever chroma|numpy]
+          [--refuse-threshold 0.96] [--retriever chroma|numpy]
 
 Without ``CCR_LLM_API_KEY`` the command runs in retrieval-only mode: it
 prints the reranked chunks with scores — still useful and fully offline.
+
+``--refuse-threshold`` defaults to the calibrated τ in
+``results/calibration.json``; override it only to experiment.
 """
 
 from __future__ import annotations
@@ -30,7 +33,15 @@ def main() -> int:
     ap.add_argument("question")
     ap.add_argument("--strategy", default="article", choices=["fixed", "article", "semantic"])
     ap.add_argument("--top-k", type=int, default=5)
-    ap.add_argument("--refuse-threshold", type=float, default=None)
+    ap.add_argument(
+        "--refuse-threshold",
+        type=float,
+        default=None,
+        help=(
+            "Cross-encoder score below which the answer is refused. "
+            "Default: the calibrated tau in results/calibration.json."
+        ),
+    )
     ap.add_argument("--retriever", default="chroma", choices=["chroma", "numpy"])
     args = ap.parse_args()
 
@@ -68,7 +79,7 @@ def main() -> int:
         calib = ROOT / "results" / "calibration.json"
         if calib.exists():
             threshold = json.loads(calib.read_text(encoding="utf-8"))["refusal"][
-                "threshold_rerank_logit"
+                "threshold_rerank_score"
             ]
         else:
             threshold = 0.0
